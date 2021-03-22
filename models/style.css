@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: antiquewhite;
+}
+
+.train-images {
+    display: none;
+}
+
+#test-img {
+    max-height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 10px solid gray;
+}
+video{
+    border: 10px solid gray;
+}
+
+video.con-mascarilla {
+    border: 10px solid green;
+}
+
+video.sin-mascarilla {
+    border: 10px solid red;
+}
+.hidden{
+    display:none;
+}
+.show{
+    display:block;
+}
