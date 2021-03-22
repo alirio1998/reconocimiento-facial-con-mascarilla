@@ -33,13 +33,6 @@ function cargarBotones() {
 
     var botonEntrenar = select("#btnEntrenar");
     botonEntrenar.mousePressed(function () {
-        /*
-        imgMascarilla = select("#selectMascarilla").value();
-        imgSinMascarilla = select("#selectNoMascarilla").value();
-        console.log(imgSinMascarilla);
-        cargarImgConMascarilla(imgMascarilla);
-        cargarImgSinMascarilla(imgSinMascarilla);
-        */
         calificador.train(function(vError){
             if(vError){
                 error = vError;
