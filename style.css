@@ -18,6 +18,8 @@ body {
 }
 video{
     border: 10px solid gray;
+    width: auto;
+    height: 240px;
 }
 
 video.con-mascarilla {

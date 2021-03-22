@@ -21,7 +21,6 @@ function setup() {
   // Crea el video
   video = createCapture(VIDEO);
   video.parent("contenedorVideo");
-  video.size(320, 240);
 
   // extrae modelo MobileNet
   featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
