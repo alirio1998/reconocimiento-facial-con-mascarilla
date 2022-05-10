@@ -19,8 +19,9 @@ let imgSinMascarilla=0;
 function setup() {
   noCanvas();
   // Crea el video
-  video = createCapture(VIDEO);
-  video.parent("contenedorVideo");
+  console.log(document.location.origin);
+  video = document.getElementById('stream');
+  video.src=''+document.location.origin+':81/stream';
 
   // extrae modelo MobileNet
   featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
