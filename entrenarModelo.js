@@ -21,7 +21,7 @@ function setup() {
   // Crea el video
   console.log(document.location.origin);
   video = document.getElementById('stream');
-  video.src=''+document.location.origin+':81/liveStream';
+  video.src=''+document.location.origin+'/liveStream';
 
   // extrae modelo MobileNet
   featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
