@@ -16,17 +16,17 @@ body {
     transform: translate(-50%, -50%);
     border: 10px solid gray;
 }
-video{
+img{
     border: 10px solid gray;
     width: auto;
     height: 240px;
 }
 
-video.con-mascarilla {
+img.con-mascarilla {
     border: 10px solid green;
 }
 
-video.sin-mascarilla {
+img.sin-mascarilla {
     border: 10px solid red;
 }
 .hidden{
