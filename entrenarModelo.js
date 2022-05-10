@@ -35,7 +35,7 @@ function setup() {
 function modeloListo() {
     
     // modelos precargados
-    clasificador.load('models/modelMascarilla.json', function() {
+    clasificador.load('https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models/modelMascarilla.json', function() {
         select("#estadoModelo").html("Modelo cargado!");
         clasificador.classify(gotResults);
     });
