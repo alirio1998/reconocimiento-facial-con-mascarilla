@@ -47,7 +47,7 @@ async function startDetection() {
     if (canvas) canvas.remove()
     image = document.getElementById('stream')
     canvas = document.getElementById("myCanvas")
-    const displaySize = { width: image.width, height: image.height }
+    const displaySize = { width: 360, height: 240 }
     faceapi.matchDimensions(canvas, displaySize)
     const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
