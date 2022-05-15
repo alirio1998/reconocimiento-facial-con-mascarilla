@@ -39,7 +39,7 @@ function setup() {
 function modeloListo() {
     
     // modelos precargados
-    clasificador.load('https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models/modelMascarilla.json', customModelReady);
+    clasificador.load('https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models/model.json', customModelReady);
     var elemento = document.querySelector('#contenidoBotones');
     elemento.className = "show";
 
