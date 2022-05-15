@@ -44,7 +44,6 @@ function setup() {
   
 async function startDetection() {
   console.log('inicio deteccion')
-    if (image) image.remove()
     if (canvas) canvas.remove()
     image = document.getElementById('stream')
     canvas = document.getElementById("myCanvas")
