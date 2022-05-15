@@ -20,8 +20,8 @@ function setup() {
   noCanvas();
   // Crea el video
   console.log(document.location.origin);
-  video = document.getElementById('stream');
-  video.src=''+document.location.origin+'/liveStream';
+  video = createCapture(VIDEO);
+  video.parent("contenedorVideo");
 
   // extrae modelo MobileNet
   featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
