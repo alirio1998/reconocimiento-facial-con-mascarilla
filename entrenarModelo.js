@@ -43,6 +43,7 @@ function setup() {
 
   
 async function startDetection() {
+  console.log('inicio deteccion')
     if (image) image.remove()
     if (canvas) canvas.remove()
     image = await faceapi.bufferToImage(document.getElementById('stream'))
