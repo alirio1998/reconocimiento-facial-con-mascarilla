@@ -1,35 +1,55 @@
-const video = document.getElementById('video')
+const imageUpload = document.getElementById('imageUpload')
 
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
   faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.faceExpressionNet.loadFromUri('/models')
-]).then(startVideo)
+  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+  faceapi.nets.ssdMobilenetv1.loadFromUri('/models')
+]).then(start)
 
-function startVideo() {
-  navigator.getUserMedia(
-    { video: {} },
-    stream => video.srcObject = stream,
-    err => console.error(err)
-  )
+  const container = document.createElement('div')
+  container.style.position = 'relative'
+  document.body.append(container)
+  let image
+  let canvas
+  
+async function startDetection() {
+    if (image) image.remove()
+    if (canvas) canvas.remove()
+    image = await faceapi.bufferToImage(document.getElementById('stream'))
+    container.append(image)
+    canvas = faceapi.createCanvasFromMedia(image)
+    container.append(canvas)
+    const displaySize = { width: image.width, height: image.height }
+    faceapi.matchDimensions(canvas, displaySize)
+    const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
+    const resizedDetections = faceapi.resizeResults(detections, displaySize)
+    resizedDetections.forEach(detection => {
+      const box = detection.detection.box
+      extractFaceFromBox(image, detection.detection.box)
+      const drawBox = new faceapi.draw.DrawBox(box)
+      drawBox.draw(canvas)
+    })
 }
 
-video.addEventListener('play', () => {
-  const canvas = faceapi.createCanvasFromMedia(video)
-  document.body.append(canvas)
-  const displaySize = { width: video.width, height: video.height }
-  faceapi.matchDimensions(canvas, displaySize)
-  setInterval(async () => {
 
-    const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
-    console.log(detections);
-    /*
-    const resizedDetections = faceapi.resizeResults(detections, displaySize)
-    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-    faceapi.draw.drawDetections(canvas, resizedDetections)
-    faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
-    faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
-    */
-  }, 100)
-})
+async function extractFaceFromBox(inputImage, box){ 
+  const regionsToExtract = [
+      new faceapi.Rect( box.x, box.y , box.width , box.height)
+  ]
+                      
+  let faceImages = await faceapi.extractFaces(inputImage, regionsToExtract)
+  
+  if(faceImages.length == 0){
+      console.log('Face not found')
+  }
+  else
+  {
+    const canvas = document.getElementById('face');
+      faceImages.forEach(cnv =>{      
+
+          canvas.src = cnv.toDataURL();
+              
+      })
+      document.body.append(canvas)  
+  }   
+}    
