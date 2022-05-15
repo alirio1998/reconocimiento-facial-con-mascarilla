@@ -27,9 +27,9 @@ function setup() {
   // extrae modelo MobileNet
   featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
   Promise.all([
-    faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-    faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-    faceapi.nets.ssdMobilenetv1.loadFromUri('/models')
+    faceapi.nets.faceRecognitionNet.loadFromUri('https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models'),
+    faceapi.nets.faceLandmark68Net.loadFromUri('https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models'),
+    faceapi.nets.ssdMobilenetv1.loadFromUri('https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models')
   ])
   // crea un nuevo calificador
   const options = { numLabels: 2 };
@@ -47,9 +47,7 @@ async function startDetection() {
     if (image) image.remove()
     if (canvas) canvas.remove()
     image = document.getElementById('stream')
-    container.append(image)
-    canvas = faceapi.createCanvasFromMedia(image)
-    container.append(canvas)
+    canvas = document.getElementById("myCanvas")
     const displaySize = { width: image.width, height: image.height }
     faceapi.matchDimensions(canvas, displaySize)
     const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
