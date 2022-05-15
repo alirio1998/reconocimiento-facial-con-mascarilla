@@ -47,7 +47,7 @@ function modeloListo() {
 
  function customModelReady() {
         select("#estadoModelo").html("Modelo cargado!");
-        const img = container.querySelector('img');
+        const img = document.querySelector('img');
         clasificador.classify(img, gotResults);
     };
 function videoListo() {
