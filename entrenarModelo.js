@@ -15,6 +15,7 @@ let video;
 let loss;
 let imgMascarilla=0;
 let imgSinMascarilla=0;
+let imgNadie=0;
 function imageReady() {
   image(video, 0, 0, width, height);
 }
@@ -64,13 +65,21 @@ function clasificar() {
 function botones() {
     var botonSin = select("#btnNoMascarilla");
     botonSin.mousePressed(function () {
-        clasificador.addImage("sin_mascarilla");
+      const img = document.querySelector('img');
+        clasificador.addImage(img, "sin_mascarilla");
         select("#sumaSinMascarilla").html((imgSinMascarilla += 1));
     });
     var botonCon = select("#btnConMascarilla");
     botonCon.mousePressed(function () {
-        clasificador.addImage("con_mascarilla");
+      const img = document.querySelector('img');
+        clasificador.addImage(img, "con_mascarilla");
         select("#sumaConMascarilla").html((imgMascarilla += 1));
+    });
+    var botonNadie = select("#btnNadie");
+    botonCon.mousePressed(function () {
+      const img = document.querySelector('img');
+        clasificador.addImage(img, "nadie");
+        select("#nadie").html((imgNadie += 1));
     });
 
   // entrenamiento del modelo
