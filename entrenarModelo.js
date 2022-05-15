@@ -46,7 +46,7 @@ async function startDetection() {
   console.log('inicio deteccion')
     if (image) image.remove()
     if (canvas) canvas.remove()
-    image = await faceapi.bufferToImage(document.getElementById('stream'))
+    image = document.getElementById('stream')
     container.append(image)
     canvas = faceapi.createCanvasFromMedia(image)
     container.append(canvas)
