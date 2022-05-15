@@ -24,8 +24,8 @@ function setup() {
   console.log(document.location.origin);
  // video = createCapture(VIDEO);
   //video.parent("contenedorVideo");
-  video = createImg(''+document.location.origin+':81/stream', imageReady);
-    video.parent("contenedorVideo");
+  video = document.getElementById('stream');
+  video.src=''+document.location.origin+':81/stream';
   // extrae modelo MobileNet
   featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
 
