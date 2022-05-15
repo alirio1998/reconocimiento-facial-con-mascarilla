@@ -104,7 +104,7 @@ function videoListo() {
 
 // Clasificar el resultado
 function clasificar() {
-        const img = document.querySelector('img');
+        const img = document.getElementById('stream');
         clasificador.classify(img, gotResults);
 }
 
@@ -112,19 +112,19 @@ function clasificar() {
 function botones() {
     var botonSin = select("#btnNoMascarilla");
     botonSin.mousePressed(function () {
-      const img = document.querySelector('img');
+      const img = document.getElementById('stream');
         clasificador.addImage(img, "sin_mascarilla");
         select("#sumaSinMascarilla").html((imgSinMascarilla += 1));
     });
     var botonCon = select("#btnConMascarilla");
     botonCon.mousePressed(function () {
-      const img = document.querySelector('img');
+      const img = document.getElementById('stream');
         clasificador.addImage(img, "con_mascarilla");
         select("#sumaConMascarilla").html((imgMascarilla += 1));
     });
     var botonNadie = select("#btnNadie");
     botonNadie.mousePressed(function () {
-      const img = document.querySelector('img');
+      const img = document.getElementById('stream');
         clasificador.addImage(img, "nadie");
         select("#nadie").html((imgNadie += 1));
     });
@@ -179,13 +179,13 @@ function gotResults(err, results) {
     var val = Math.trunc(results[0].confidence.toFixed(2) * 100 );
     select("#resultado").html(results[0].label);
     select("#coincidencia").html(`${val }%`);
-    var elemento = document.querySelectorAll("img");
+    var elemento = document.getElementById('stream');
     if (results[0].label == "sin_mascarilla") { // sin mascarilla bode rojo
-      elemento[0].className = "sin-mascarilla";
+      elemento.className = "sin-mascarilla";
     } else if(results[0].label == "con_mascarilla"){ // con mascarilla borde verde
-      elemento[0].className = "con-mascarilla";
+      elemento.className = "con-mascarilla";
     } else if(results[0].label == "nadie"){ // con mascarilla borde verde
-      elemento[0].className = "nadie";
+      elemento.className = "nadie";
     }
 
     clasificar();
