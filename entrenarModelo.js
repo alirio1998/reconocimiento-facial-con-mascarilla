@@ -47,8 +47,7 @@ function modeloListo() {
 
  function customModelReady() {
         select("#estadoModelo").html("Modelo cargado!");
-        const img = document.querySelector('img');
-        clasificador.classify(img, gotResults);
+        clasificar();
     };
 function videoListo() {
     select("#estadoVideo").html("Video cargado!");
@@ -57,7 +56,8 @@ function videoListo() {
 
 // Clasificar el resultado
 function clasificar() {
-  clasificador.classify(gotResults);
+        const img = document.querySelector('img');
+        clasificador.classify(img, gotResults);
 }
 
 // funciones de botones
