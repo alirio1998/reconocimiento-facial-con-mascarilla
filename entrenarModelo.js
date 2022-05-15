@@ -23,7 +23,8 @@ function setup() {
  // video = createCapture(VIDEO);
   //video.parent("contenedorVideo");
   video = document.getElementById('stream');
-  video.src=''+document.location.origin+':81/stream';
+  //video.src=''+document.location.origin+':81/stream';
+  video.src='https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/images/no_mask.jpg';
   // extrae modelo MobileNet
   featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
   Promise.all([
