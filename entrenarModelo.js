@@ -31,22 +31,25 @@ function setup() {
 
   // crea un nuevo calificador
   const options = { numLabels: 2 };
-  clasificador = featureExtractor.classification(video, options,videoListo);
+  clasificador = featureExtractor.classification();
   // activa los botones
   botones();
 }
 function modeloListo() {
     
     // modelos precargados
-    clasificador.load('https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models/modelMascarilla.json', function() {
-        select("#estadoModelo").html("Modelo cargado!");
-        clasificador.classify(gotResults);
-    });
+    clasificador.load('https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models/modelMascarilla.json', customModelReady);
     var elemento = document.querySelector('#contenidoBotones');
     elemento.className = "show";
 
     
 }
+
+ function customModelReady() {
+        select("#estadoModelo").html("Modelo cargado!");
+        const img = container.querySelector('img');
+        clasificador.classify(img, gotResults);
+    };
 function videoListo() {
     select("#estadoVideo").html("Video cargado!");
 }
