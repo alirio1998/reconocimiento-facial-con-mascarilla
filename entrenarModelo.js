@@ -122,7 +122,7 @@ function gotResults(err, results) {
     var val = Math.trunc(results[0].confidence.toFixed(2) * 100 );
     select("#resultado").html(results[0].label);
     select("#coincidencia").html(`${val }%`);
-    var elemento = document.querySelectorAll("video");
+    var elemento = document.querySelectorAll("img");
     console.log(elemento[0]);
     if (results[0].label == "sin_mascarilla") { // sin mascarilla bode rojo
       elemento[0].className = "sin-mascarilla";
