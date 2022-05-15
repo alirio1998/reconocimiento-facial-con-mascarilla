@@ -46,8 +46,8 @@ async function startDetection() {
   console.log('inicio deteccion')
     if (canvas) canvas.remove()
     image = document.getElementById('stream')
-    canvas = document.getElementById("myCanvas")
-    const displaySize = { width: 360, height: 240 }
+    canvas = faceapi.createCanvasFromMedia(image)
+    const displaySize = { width: image.width, height: image.height }
     faceapi.matchDimensions(canvas, displaySize)
     const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
@@ -173,7 +173,7 @@ function gotResults(err, results) {
     console.log(err);
   }
   if (results && results[0]) {
-    startDetection();
+    setTimeout(startDetection, 3000);
     console.log(results);
     var val = Math.trunc(results[0].confidence.toFixed(2) * 100 );
     select("#resultado").html(results[0].label);
