@@ -127,6 +127,7 @@ function gotResults(err, results) {
     console.log(err);
   }
   if (results && results[0]) {
+    console.log(results);
     var val = Math.trunc(results[0].confidence.toFixed(2) * 100 );
     select("#resultado").html(results[0].label);
     select("#coincidencia").html(`${val }%`);
