@@ -118,12 +118,10 @@ function gotResults(err, results) {
     console.log(err);
   }
   if (results && results[0]) {
-    console.log(results);
     var val = Math.trunc(results[0].confidence.toFixed(2) * 100 );
     select("#resultado").html(results[0].label);
     select("#coincidencia").html(`${val }%`);
     var elemento = document.querySelectorAll("img");
-    console.log(elemento[0]);
     if (results[0].label == "sin_mascarilla") { // sin mascarilla bode rojo
       elemento[0].className = "sin-mascarilla";
     } else if(results[0].label == "con_mascarilla"){ // con mascarilla borde verde
