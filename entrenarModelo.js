@@ -22,7 +22,7 @@ function setup() {
   console.log(document.location.origin);
  // video = createCapture(VIDEO);
   //video.parent("contenedorVideo");
-  console.log(document.location.origin);
+  console.log(''+document.location.origin+':81/stream');
   video = document.getElementById('stream');
   video.src=''+document.location.origin+':81/stream';
   // extrae modelo MobileNet
