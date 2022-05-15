@@ -1,36 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Mask detection</title>
-    <link href="./style.css" rel="stylesheet">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta http-equiv="Access-Control-Allow-Headers" content="Origin, X-Requested-With, Content-Type, Accept">
+        <meta http-equiv="Access-Control-Allow-Methods" content="GET,POST,PUT,DELETE,OPTIONS">
+        <meta http-equiv="Access-Control-Allow-Origin" content="*">
+        <title>Sistema de reconocimiento facial</title>
+        <link href="https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/style.css" rel="stylesheet">
+        <script src="https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/p5.min.js"></script>
+        <script src="https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/p5.dom.min.js"></script>
 
-    <script src="./p5.min.js"></script>
-    <script src="./p5.dom.min.js"></script>
-
-    <script src="./ml5.min.js" type="text/javascript"></script>
-    <style></style>
+        <script defer src="https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/face-api.min.js"></script>
+        <script src="https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/ml5.min.js" type="text/javascript"></script>
+        <script src="https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/entrenarModelo.js"></script>
+        <style></style>
     
 
-    <script src="entrenarModelo.js"></script>
-</head>
-<body>
+    </head>
+    <body>
+
+            
     <div class="train-images"></div>
+    <canvas id="myCanvas"></canvas>
     <div class="contenido" style="text-align: center;">
-        <h1>Entrenar modelo para reconocer a personas con mascarilla y sin mascarilla</h1>
-        <div id="contenedorVideo"></div>
+        <h1>Sistema para reconocer a personas con mascarilla y sin mascarilla</h1>
+        <div id="contenedorVideo">
+        <img id="stream" src="" crossorigin="anonymous">
+        </div>
+          <img crossorigin="anonymous" id="face">
         <h2>resultado: <span id="resultado"></span> coincidencia: <span id="coincidencia"></span></h2>
+        <h6><span>Proyecto desarrollado por Alirio Márquez</span></h6>
         <h6><span id="estadoModelo">Cargando modelo base...</span> | <span id="estadoVideo">Cargando video...</span></h6>
         <div id="contenidoBotones" class="hidden">
    
             <label for="selectMascarilla">Tomar imagenes desde la camara para entrenar el modelo</label>
             <hr>
-            <button id="btnNoMascarilla">Cargar sin mascarilla</button>
-            <p><span id="sumaSinMascarilla">0</span> Imagenes</p>
-            <hr>
-            <button id="btnConMascarilla">Cargar con mascarilla</button>
-            <p><span id="sumaConMascarilla">0</span> Imagenes</p>
-            <hr>
+            <table style="margin-left: auto;margin-right: auto;">
+                <tr>
+                  <td>
+                      <button id="btnNoMascarilla">Cargar sin mascarilla</button>
+                      <p><span id="sumaSinMascarilla">0</span> Imagenes</p>
+                  </td>
+                  <td>
+                    <button id="btnConMascarilla">Cargar con mascarilla</button>
+                    <p><span id="sumaConMascarilla">0</span> Imagenes</p>
+                  </td>
+                  <td>
+                    <button id="btnNadie">Cargar a la espera</button>
+                    <p><span id="nadie">0</span> Imagenes</p>
+                  </td>
+                </tr>
+            </table  style="margin-left: auto;margin-right: auto;">
             <!--
             <label for="selectMascarilla">Seleccionar la cantidad de imagenes con mascarilla para entrenar el modelo</label>
             <select id="selectMascarilla">
@@ -45,28 +65,26 @@
                 <option value="100">cargar 100 imagenes</option>
             </select>
             -->
-            <button id="btnEntrenar">Entrenar modelo</button>
+            
+            <hr>
+            <table  style="margin-left: auto;margin-right: auto;">
+                <tr>
+                  <td>
+                      <button id="btnEntrenar">Entrenar modelo</button>
+
+                  </td>
+                  <td>
+                    <button id="btnPredecir">Predecir</button>
+                  </td>
+                  <td>
+                    <button id="btnGuardar">Guardar modelo</button>
+                  </td>
+                </tr>
+            </table>
             <p><span id="error">porcentaje de perdida</span></p>
             <hr>
-            <button id="btnPredecir">Predecir</button>
-            <hr>
-            <button id="btnGuardar">Guardar modelo</button>
+            
         </div>
-
-    </div>
-
-
-<!--
-<div class="train-images"></div>
-
-<img id="test-img" crossorigin="anonymous" src="images/no_mask.jpg" >
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/knn-classifier"></script>
-<script src="app.js"></script>
--->
-
-</body>
+    </div>        
+    </body>
 </html>
