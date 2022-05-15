@@ -76,7 +76,7 @@ function botones() {
         select("#sumaConMascarilla").html((imgMascarilla += 1));
     });
     var botonNadie = select("#btnNadie");
-    botonCon.mousePressed(function () {
+    botonNadie.mousePressed(function () {
       const img = document.querySelector('img');
         clasificador.addImage(img, "nadie");
         select("#nadie").html((imgNadie += 1));
