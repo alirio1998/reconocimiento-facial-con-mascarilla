@@ -84,7 +84,7 @@ function botones() {
   // Guardar modelo
   var guardarBtn = select("#btnGuardar");
   guardarBtn.mousePressed(function() {
-    clasificador.save("models/");
+    clasificador.save("https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models/");
   });
 
 
