@@ -135,6 +135,8 @@ function gotResults(err, results) {
       elemento[0].className = "sin-mascarilla";
     } else if(results[0].label == "con_mascarilla"){ // con mascarilla borde verde
       elemento[0].className = "con-mascarilla";
+    } else if(results[0].label == "nadie"){ // con mascarilla borde verde
+      elemento[0].className = "nadie";
     }
 
     clasificar();
