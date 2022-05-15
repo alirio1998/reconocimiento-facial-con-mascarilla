@@ -15,16 +15,17 @@ let video;
 let loss;
 let imgMascarilla=0;
 let imgSinMascarilla=0;
-
+function imageReady() {
+  image(video, 0, 0, width, height);
+}
 function setup() {
-  noCanvas();
+   noCanvas();
   // Crea el video
   console.log(document.location.origin);
  // video = createCapture(VIDEO);
   //video.parent("contenedorVideo");
-  console.log(''+document.location.origin+':81/stream');
-  video = document.getElementById('stream');
-  video.src=''+document.location.origin+':81/stream';
+  video = createImg(''+document.location.origin+':81/stream', imageReady);
+    video.parent("contenedorVideo");
   // extrae modelo MobileNet
   featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
 
@@ -114,6 +115,7 @@ function gotResults(err, results) {
     console.log(err);
   }
   if (results && results[0]) {
+    console.log(results);
     var val = Math.trunc(results[0].confidence.toFixed(2) * 100 );
     select("#resultado").html(results[0].label);
     select("#coincidencia").html(`${val }%`);
