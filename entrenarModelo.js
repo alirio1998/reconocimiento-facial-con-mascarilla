@@ -1,13 +1,4 @@
-// Copyright (c) 2019 ml5
-//
-// This software is released under the MIT License.
-// https://opensource.org/licenses/MIT
 
-/* ===
-ml5 Example
-Image Classification using Feature Extraction with MobileNet. Built with p5.js
-This example uses a callback pattern to create the clasificador
-=== */
 
 let featureExtractor;
 let clasificador;
@@ -16,11 +7,17 @@ let loss;
 let imgMascarilla=0;
 let imgSinMascarilla=0;
 let imgNadie=0;
+  const container = document.createElement('div')
+
+  let image
+  let canvas
 function imageReady() {
   image(video, 0, 0, width, height);
 }
 function setup() {
    noCanvas();
+    container.style.position = 'relative'
+  document.body.append(container)
   // Crea el video
   console.log(document.location.origin);
  // video = createCapture(VIDEO);
@@ -29,13 +26,64 @@ function setup() {
   video.src=''+document.location.origin+':81/stream';
   // extrae modelo MobileNet
   featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
-
+  Promise.all([
+    faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+    faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+    faceapi.nets.ssdMobilenetv1.loadFromUri('/models')
+  ])
   // crea un nuevo calificador
   const options = { numLabels: 2 };
   clasificador = featureExtractor.classification();
   // activa los botones
   botones();
 }
+
+
+
+
+  
+async function startDetection() {
+    if (image) image.remove()
+    if (canvas) canvas.remove()
+    image = await faceapi.bufferToImage(document.getElementById('stream'))
+    container.append(image)
+    canvas = faceapi.createCanvasFromMedia(image)
+    container.append(canvas)
+    const displaySize = { width: image.width, height: image.height }
+    faceapi.matchDimensions(canvas, displaySize)
+    const detections = await faceapi.detectAllFaces(image).withFaceLandmarks().withFaceDescriptors()
+    const resizedDetections = faceapi.resizeResults(detections, displaySize)
+    resizedDetections.forEach(detection => {
+      const box = detection.detection.box
+      extractFaceFromBox(image, detection.detection.box)
+      const drawBox = new faceapi.draw.DrawBox(box)
+      drawBox.draw(canvas)
+    })
+}
+
+
+async function extractFaceFromBox(inputImage, box){ 
+  const regionsToExtract = [
+      new faceapi.Rect( box.x, box.y , box.width , box.height)
+  ]
+                      
+  let faceImages = await faceapi.extractFaces(inputImage, regionsToExtract)
+  
+  if(faceImages.length == 0){
+      console.log('Face not found')
+  }
+  else
+  {
+    const canvas = document.getElementById('face');
+      faceImages.forEach(cnv =>{      
+
+          canvas.src = cnv.toDataURL();
+              
+      })
+      document.body.append(canvas)  
+  }   
+}    
+
 function modeloListo() {
     
     // modelos precargados
@@ -127,6 +175,7 @@ function gotResults(err, results) {
     console.log(err);
   }
   if (results && results[0]) {
+    startDetection();
     console.log(results);
     var val = Math.trunc(results[0].confidence.toFixed(2) * 100 );
     select("#resultado").html(results[0].label);
