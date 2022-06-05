@@ -18,8 +18,9 @@ body {
 }
 img{
     border: 10px solid gray;
-    width: auto;
-    height: 240px;
+    width: 200px;
+    height: 200px;
+    max-height: 200px;
 }
 
 img.con-mascarilla {
