@@ -25,7 +25,7 @@ async function faceDetect() {
     idImg = 1;
   }
   */
-  imageUpload.src='images/desconocido.jpg';
+  imageUpload.src='https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/images/desconocido.jpg';
     image = video;
     container.append(image);
     const detections = await faceapi.detectAllFaces(image).withFaceLandmarks();
@@ -41,7 +41,7 @@ async function faceDetect() {
       })
     }else{
       const canvas = document.getElementById('face');
-      canvas.src = 'images/desconocido.jpg';
+      canvas.src = 'https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/images/desconocido.jpg';
       
       videoDetect.append(canvas);
     }
