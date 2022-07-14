@@ -16,6 +16,62 @@ let loss;
 let imgMascarilla=0;
 let imgSinMascarilla=0;
 let imgNadie=0;
+
+async function faceDetect() {
+  /*
+  imageUpload.src='images/con_mascarilla/asian_mask'+idImg+'.jpg';
+  idImg++;
+  if(idImg>200){
+    idImg = 1;
+  }
+  */
+  imageUpload.src='images/desconocido.jpg';
+    image = video;
+    container.append(image);
+    const detections = await faceapi.detectAllFaces(image).withFaceLandmarks();
+
+    const results = detections;
+
+    if(results.length>0){
+      results.forEach((result, i) => {
+        console.log(detections[0].detection.box);
+        extractFaceFromBox(image, detections[0].detection.box);
+        //const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
+        //drawBox.draw(canvas)
+      })
+    }else{
+      const canvas = document.getElementById('face');
+      canvas.src = 'images/desconocido.jpg';
+      
+      videoDetect.append(canvas);
+    }
+    console.log(results);
+  
+};
+
+async function extractFaceFromBox(inputImage, box){ 
+
+  const regionsToExtract = [
+      new faceapi.Rect( box.x, box.y , box.width , box.height)
+  ]
+                      
+  let faceImages = await faceapi.extractFaces(inputImage, regionsToExtract)
+  
+  if(faceImages.length == 0){
+      console.log('Face not found')
+  }
+  else
+  {
+    const canvas = document.getElementById('face');
+      faceImages.forEach(cnv =>{      
+
+          canvas.src = cnv.toDataURL();
+              
+      })
+      videoDetect.append(canvas);
+  }   
+}    
+
 function imageReady() {
   image(video, 0, 0, width, height);
 }
