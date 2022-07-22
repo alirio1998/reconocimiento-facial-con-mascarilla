@@ -12,7 +12,8 @@ const divLoading = document.getElementById('contenedorLoading')
 const divContenido = document.getElementById('contenido')
 divContenido.className = "hidden";
 function setup() {
-  imageUpload.src='http://192.168.68.117:81/stream';
+    console.log(document.location.origin);
+  imageUpload.src=''+document.location.origin+':81/stream';
   imageUpload.onload=imagenEncontrada;
   imageUpload.onloadstart = BuscandoImagen;
   imageUpload.onerror=imageNoEncontrada;
@@ -95,7 +96,7 @@ async function InicioDeteccionFacial() {
       })
     }else{
       const canvas = document.getElementById('face');
-      imageFace.src = '/images/desconocido.jpg';
+      imageFace.src = 'https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/images/desconocido.jpg';
       //document.body.append(canvas) ;
       select("#resultado").html('Ninguna persona detectada');
       select("#coincidencia").html(`100%`);
