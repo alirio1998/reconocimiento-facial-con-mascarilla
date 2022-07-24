@@ -48,12 +48,35 @@ function initCount(){
     // Finalizamos el "juego"
     contadorlbl.className = "hidden";
     let respuesta = document.getElementById("respuesta")
-    divContenido.className = "hidden";
     respuesta.className = "";
-    window.location.href =''+document.location.origin+'/apertura';
+   AbrirPuerta();
+    //window.location.href =''+document.location.origin+'/apertura';
   }
 console.log(segundos);
 }
+function AbrirPuerta(){
+//Declaramos una nueva instancia de XMLHttpRequest
+var xhr = new XMLHttpRequest();
+
+//Esta función se ejecutará tras la petición
+xhr.onload = function () {
+
+    //Si la petición es exitosa
+    if (xhr.status >= 200 && xhr.status < 300) {
+        //Mostramos un mensaje de exito y el contenido de la respuesta
+        console.log('¡Éxito!', xhr.response);
+    } else {
+        //Si la conexión falla
+        console.log('Error en la petición!');
+    }
+
+};
+//Por el primer parametro enviamos el tipo de petición (GET, POST, PUT, DELETE)
+//Por el segundo parametro la url de la API
+xhr.open('GET', ''+document.location.origin+'/apertura');
+//Se envía la petición
+xhr.send();
+ }
 function setup() {
     console.log(document.location.origin);
   imageUpload.src=''+document.location.origin+':81/stream';
