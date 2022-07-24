@@ -47,8 +47,6 @@ function initCount(){
   else if(segundos<=0){
     // Finalizamos el "juego"
     contadorlbl.className = "hidden";
-    let respuesta = document.getElementById("respuesta")
-    respuesta.className = "";
    AbrirPuerta();
     //window.location.href =''+document.location.origin+'/apertura';
   }
