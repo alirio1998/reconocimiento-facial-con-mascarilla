@@ -11,6 +11,49 @@ const container = document.getElementById('contenedorVideo')
 const divLoading = document.getElementById('contenedorLoading')
 const divContenido = document.getElementById('contenido')
 divContenido.className = "hidden";
+var control
+var tiempo=3000
+var segundos=tiempo
+var contador=0
+function initCount(){
+ let elem = document.getElementById("segundos");
+ var contadorlbl = document.getElementById('contador');
+ if(segundos>0){
+  segundos = segundos-contador;
+ }
+
+ 
+ //si se termina el tiempo...
+ if(segundos>4000){
+  // Finalizamos el "juego"
+  elem.textContent=5;
+  }
+  else if(segundos>3000){
+    // Finalizamos el "juego"
+    elem.textContent=4;
+  }
+  else if(segundos>2000){
+    // Finalizamos el "juego"
+    elem.textContent=3;
+  }
+  else if(segundos>1000){
+    // Finalizamos el "juego"
+    elem.textContent=2;
+  }
+  else if(segundos>0){
+    // Finalizamos el "juego"
+    elem.textContent=1;
+  }  
+  else if(segundos<=0){
+    // Finalizamos el "juego"
+    contadorlbl.className = "hidden";
+    let respuesta = document.getElementById("respuesta")
+    divContenido.className = "hidden";
+    respuesta.className = "";
+    window.location.href =''+document.location.origin+'/apertura';
+  }
+console.log(segundos);
+}
 function setup() {
     console.log(document.location.origin);
   imageUpload.src=''+document.location.origin+':81/stream';
@@ -20,7 +63,6 @@ function setup() {
 }
 async function cargarTensorflow() {
   
-    noCanvas();
     featureExtractor = ml5.featureExtractor("MobileNet", modeloListo);
     const options = { numLabels: 2 };
     clasificador = featureExtractor.classification();
@@ -96,13 +138,17 @@ async function InicioDeteccionFacial() {
       })
     }else{
       const canvas = document.getElementById('face');
-      imageFace.src = 'https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/images/desconocido.jpg';
+      imageFace.src = '/images/desconocido.jpg';
       //document.body.append(canvas) ;
       select("#resultado").html('Ninguna persona detectada');
       select("#coincidencia").html(`100%`);
       var elemento = document.getElementById('stream');
       elemento.className = "";
-        
+      var contadorlbl = document.getElementById('contador');
+
+      contadorlbl.className = "hidden";
+      contador=0;
+      segundos=tiempo;
 
       
       //videoDetect.append(canvas);
@@ -162,10 +208,14 @@ async function ObtenerRostro(inputImage, box){
 }
 // Clasificar el resultado
 function clasificar() {
-  clasificador.classify(imageFace, Resultados);
+  setTimeout(function(){
+    clasificador.classify(imageFace, Resultados);
+  }, 1000);
+
 }
 function Resultados(err, results) {
   // muestra los errores
+
   if (err) {
     console.log(err);
   }
@@ -176,13 +226,27 @@ function Resultados(err, results) {
     select("#resultado").html(results[0].label);
     select("#coincidencia").html(`${val }%`);
     var elemento = document.getElementById('stream');
+    var contadorlbl = document.getElementById('contador');
     if (results[0].label == "sin_mascarilla") { // sin mascarilla bode rojo
       elemento.className = "sin-mascarilla";
+      contadorlbl.className = "hidden";
+      contador=0;
+      segundos=tiempo;
     } else if(results[0].label == "con_mascarilla"){ // con mascarilla borde verde
+
+        contador=contador+1;
+        contadorlbl.className = "";
       elemento.className = "con-mascarilla";
+      initCount();
+      //control = setTimeout(initCount, 1000);
+      //clearTimeot(control);
     } else if(results[0].label == "nadie"){ // con mascarilla borde verde
       elemento.className = "nadie";
+      contadorlbl.className = "hidden";
+      contador=0;
+      segundos=tiempo;
     }
   }
 }
+
 
