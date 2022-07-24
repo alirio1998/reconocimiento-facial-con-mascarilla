@@ -62,6 +62,8 @@ xhr.onload = function () {
     //Si la petición es exitosa
     if (xhr.status >= 200 && xhr.status < 300) {
         //Mostramos un mensaje de exito y el contenido de la respuesta
+           contador=0;
+      segundos=tiempo;
         console.log('¡Éxito!', xhr.response);
     } else {
         //Si la conexión falla
