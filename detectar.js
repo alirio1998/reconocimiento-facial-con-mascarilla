@@ -47,12 +47,12 @@ function initCount(){
   else if(segundos<=0){
     // Finalizamos el "juego"
     contadorlbl.className = "hidden";
-   AbrirPuerta();
+   HttpconMascarilla();
     //window.location.href =''+document.location.origin+'/apertura';
   }
 console.log(segundos);
 }
-function AbrirPuerta(){
+function HttpconMascarilla(){
 //Declaramos una nueva instancia de XMLHttpRequest
 var xhr = new XMLHttpRequest();
 
@@ -64,7 +64,7 @@ xhr.onload = function () {
         //Mostramos un mensaje de exito y el contenido de la respuesta
            contador=0;
       segundos=tiempo;
-        console.log('¡Éxito!', xhr.response);
+        console.log('¡Éxito conMascarilla!', xhr.response);
     } else {
         //Si la conexión falla
         console.log('Error en la petición!');
@@ -73,7 +73,32 @@ xhr.onload = function () {
 };
 //Por el primer parametro enviamos el tipo de petición (GET, POST, PUT, DELETE)
 //Por el segundo parametro la url de la API
-xhr.open('GET', ''+document.location.origin+'/apertura');
+xhr.open('GET', ''+document.location.origin+'/conMascarilla');
+//Se envía la petición
+xhr.send();
+ }
+function HttpsinMascarilla(){
+//Declaramos una nueva instancia de XMLHttpRequest
+var xhr = new XMLHttpRequest();
+
+//Esta función se ejecutará tras la petición
+xhr.onload = function () {
+
+    //Si la petición es exitosa
+    if (xhr.status >= 200 && xhr.status < 300) {
+        //Mostramos un mensaje de exito y el contenido de la respuesta
+           contador=0;
+      segundos=tiempo;
+        console.log('¡Éxito sinMascarilla!', xhr.response);
+    } else {
+        //Si la conexión falla
+        console.log('Error en la petición!');
+    }
+
+};
+//Por el primer parametro enviamos el tipo de petición (GET, POST, PUT, DELETE)
+//Por el segundo parametro la url de la API
+xhr.open('GET', ''+document.location.origin+'/sinMascarilla');
 //Se envía la petición
 xhr.send();
  }
@@ -169,9 +194,10 @@ async function InicioDeteccionFacial() {
       elemento.className = "";
       var contadorlbl = document.getElementById('contador');
 
-      contadorlbl.className = "hidden";
-      contador=0;
-      segundos=tiempo;
+      //contadorlbl.className = "hidden";
+      //contador=0;
+      //segundos=tiempo;
+      HttpsinMascarilla();
 
       
       //videoDetect.append(canvas);
@@ -252,22 +278,24 @@ function Resultados(err, results) {
     var contadorlbl = document.getElementById('contador');
     if (results[0].label == "sin_mascarilla") { // sin mascarilla bode rojo
       elemento.className = "sin-mascarilla";
-      contadorlbl.className = "hidden";
-      contador=0;
-      segundos=tiempo;
+      HttpsinMascarilla();
+      //contadorlbl.className = "hidden";
+      //contador=0;
+      //segundos=tiempo;
     } else if(results[0].label == "con_mascarilla"){ // con mascarilla borde verde
 
-        contador=contador+1;
-        contadorlbl.className = "";
+        //contador=contador+1;
+        //contadorlbl.className = "";
       elemento.className = "con-mascarilla";
-      initCount();
+      HttpconMascarilla();
       //control = setTimeout(initCount, 1000);
       //clearTimeot(control);
     } else if(results[0].label == "nadie"){ // con mascarilla borde verde
       elemento.className = "nadie";
-      contadorlbl.className = "hidden";
-      contador=0;
-      segundos=tiempo;
+      HttpsinMascarilla(); 
+      //contadorlbl.className = "hidden";
+      //contador=0;
+      //segundos=tiempo;
     }
   }
 }
