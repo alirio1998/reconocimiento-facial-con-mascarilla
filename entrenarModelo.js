@@ -167,7 +167,11 @@ function cargarBotones() {
     botonPredecir.mousePressed(function () {
         clasificador.classify(muestraResultado);
     });
-
+  // Guardar modelo
+  var guardarBtn = select("#btnGuardar");
+  guardarBtn.mousePressed(function() {
+    clasificador.save("https://alirio1998.github.io/reconocimiento-facial-con-mascarilla/models/");
+  });
 }
 async function ObtenerRostro(inputImage, box){ 
     const regionsToExtract = [
