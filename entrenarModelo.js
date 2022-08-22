@@ -15,7 +15,7 @@ const divLoading = document.getElementById('contenedorLoading')
 const divContenido = document.getElementById('contenido')
 divContenido.className = "hidden";
 function setup() {
-  imageUpload.src=''+document.location.origin+'/stream';
+  imageUpload.src=''+document.location.origin+':81/stream';
   imageUpload.onload=imagenEncontrada;
   imageUpload.onloadstart = BuscandoImagen;
   imageUpload.onerror=imageNoEncontrada;
