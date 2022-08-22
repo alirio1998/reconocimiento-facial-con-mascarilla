@@ -131,13 +131,14 @@ function botones() {
         clasificador.addImage(img, "con_mascarilla");
         select("#sumaConMascarilla").html((imgMascarilla += 1));
     });
+  /*
     var botonNadie = select("#btnNadie");
     botonNadie.mousePressed(function () {
       const img = document.querySelector('img');
         clasificador.addImage(img, "nadie");
         select("#nadie").html((imgNadie += 1));
     });
-
+*/
   // entrenamiento del modelo
   var botonEntrenar = select("#btnEntrenar");
   botonEntrenar.mousePressed(entrenar);
